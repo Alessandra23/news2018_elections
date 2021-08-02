@@ -12,7 +12,7 @@ library(colorspace)
 all_txts <- list.files(pattern = ".txt$")
 all_txts
 
-alltxt <- map_df(all_txts, ~ data_frame(txt = read_file(.x)) %>%
+alltxt <- map_df(all_txts, ~ tibble(txt = read_file(.x)) %>%
          mutate(filename = basename(.x)))
 
 bbc <- alltxt[3,1]
@@ -28,7 +28,7 @@ text <- gsub("@\\w+", "", text)
 text <- gsub("https?://.+", "", text)
 text <- gsub("\\d+\\w*\\d*", "", text)
 text <- gsub("#\\w+", "", text)
-text <- gsub("[^\x01-\x7F]", "", text)
+#text <- gsub("[^\x01-\x7F]", "", text)
 text <- gsub("[[:punct:]]", " ", text)
 # Remove spaces and newlines
 text <- gsub("\n", " ", text)
@@ -49,7 +49,7 @@ addWords <- c(
   "in", "1", "a", "1.98", "100", "é", "2", "skui2ubiss",
   "skui2tu7ts", "19", "curtir", "responder", "pra", "pas", "nao", "aqui" , "ainda", 
   "vou", "voc", "tcurtir", "vai", "ser", "silva", "ter", "tkika", "est", "oliveira",
-  "souza", "tmaria", "lima"
+  "souza", "tmaria", "lima", "lá", "tá", "t"
 )
 stopWords <- c(stopWords, addWords)
 

@@ -47,9 +47,10 @@ stopWords <- stopwords("pt")
 addWords <- c(
   "https", "t.co", "rt", "amp", "to",
   "in", "1", "a", "1.98", "100", "é", "2", "skui2ubiss",
-  "skui2tu7ts", "19", "curtir", "responder", "pra", "pas", "nao", "aqui" , "ainda", 
+  "skui2tu7ts", "19", "curtir", "responder", "pra", "pas", "aqui" , "ainda", 
   "vou", "voc", "tcurtir", "vai", "ser", "silva", "ter", "tkika", "est", "oliveira",
-  "souza", "tmaria", "lima", "lá", "tá", "t"
+  "souza", "tmaria", "lima", "lá", "tá", "todos", "porque", "gomes", "agora", "vão",
+  "assim", "vcs", "tadriana", "tlucio", "paulo", "santos", "tsou", "aí", "rodrigues"
 )
 stopWords <- c(stopWords, addWords)
 
@@ -87,7 +88,7 @@ all_words_interesting %>% head()
 
 
 plotall <- all_words_interesting %>%
-  slice(1:25)
+  slice(1:20)
 
 pal <- rev(sequential_hcl(palette = "YlGnBu", n = 11))
 p <- ggplot(plotall, aes(x = reorder(word, freq, function(n) n), y = freq)) +

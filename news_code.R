@@ -5,7 +5,7 @@ library(RColorBrewer)
 library(wordcloud2)
 library(tm)
 library(colorspace)
-
+library(syuzhet)
 
 ## Read data
 
@@ -116,11 +116,17 @@ p
 
 # Sentiment ---------------------------------------------------------------
 
+
+
 # analyse the sentiment of the words used
-bing_lex <- get_sentiments("nrc")
+#bing_lex <- get_sentiments("nrc")
+
+# look at dictionary lexicon
+lexPort <- get_sentiment_dictionary(dictionary = "nrc", language = "portuguese")
+lexPort <- lexPort[,2:4]
 
 fn_sentiment <- all_words_interesting %>%
-  left_join(bing_lex)
+   left_join(lexPort)
 
 sentiments <- fn_sentiment %>%
   filter(!is.na(sentiment)) %>%
@@ -147,4 +153,36 @@ p <- ggplot(sentiments, aes(x = reorder(sentiment, n, function(n) n), y = n)) +
   coord_flip() +
   theme(axis.title.y = element_text(angle = 90, vjust = 0.5))
 p
+
+
+# using alternate method --------------------------------------------------
+# using a slightly different method produces similar results
+nrc_lex <- get_nrc_sentiment(char_v = text,
+                             language = "portuguese")
+
+d2 <- data.frame(sentiment = names(nrc_lex), n = t(nrc_lex))
+rownames(d2) <- NULL
+
+
+p1 <- ggplot(d2, aes(x = reorder(sentiment, n, function(n) n), y = n)) +
+  geom_col(aes(fill = n)) +
+  scale_fill_gradientn(
+    colors = pal,
+    name = "Sentimento",
+    guide = guide_colorbar(
+      frame.colour = "black",
+      frame.linewidth = 1,
+      ticks.colour = "black",
+      ticks.linewidth = 1,
+    )
+  ) +
+  ggtitle(label = "Sentimento") +
+  theme_minimal() +
+  xlab("Sentimento") +
+  ylab("Frequência") +
+  coord_flip() +
+  theme(axis.title.y = element_text(angle = 90, vjust = 0.5))
+p1
+
+
 

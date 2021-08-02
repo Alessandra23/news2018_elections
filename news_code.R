@@ -5,7 +5,7 @@ library(RColorBrewer)
 library(wordcloud2)
 library(tm)
 library(colorspace)
-
+library(syuzhet)
 
 ## Read data
 

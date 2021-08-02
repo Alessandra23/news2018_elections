@@ -70,7 +70,7 @@ matrix <- as.matrix(dtm)
 words <- sort(rowSums(matrix), decreasing = TRUE)
 df <- data.frame(word = names(words), freq = words)
 rownames(df) <- NULL
-head(df)
+
 
 
 # remove stop words from data

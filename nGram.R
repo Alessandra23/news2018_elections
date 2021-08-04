@@ -1,6 +1,7 @@
 library(dplyr)
 library(tidytext)
-library(janeaustenr)
+library(tm)
+
 
 
 ## Read data
@@ -31,8 +32,6 @@ text <- gsub("^\\s+", "", text)
 text <- gsub("\\s+$", "", text)
 text <- gsub("[ |\t]+", " ", text)
 
-# set colour palette
-pal <- rev(sequential_hcl(palette = "YlGnBu", n = 11))
 
 # Stop words --------------------------------------------------------------
 
@@ -94,10 +93,6 @@ bigrams_united <- bigrams_filtered %>%
   unite(bigram, word1, word2, sep = " ")
 
 
-bigram_tf_idf <- bigrams_united %>%
-  count(book, bigram) %>%
-  bind_tf_idf(bigram, book, n) %>%
-  arrange(desc(tf_idf))
 
 
 

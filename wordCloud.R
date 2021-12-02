@@ -2,13 +2,40 @@
 # Create Word Cloud #
 #####################
 
-# create word cloud -------------------------------------------------------
+# library -------------------------------------------------------
 library(wordcloud)
 library(RColorBrewer)
 library(wordcloud2)
 library(tm)
 
 
+# Use with news_code.R ----------------------------------------------------
+
+# get words
+wcWords <- all_words_interesting %>%
+  slice(1:100)
+
+# make plot
+set.seed(1234) # for reproducibility
+wordcloud(
+  words = wcWords$word,
+  freq = wcWords$freq,
+  min.freq = 1,
+  max.words = 100,
+  random.order = FALSE,
+  rot.per = 0.35,
+  colors = brewer.pal(8, "Dark2")
+)
+
+# interactive word cloud
+wordcloud2(data = wcWords, size = 0.5, color = "random-dark")
+
+
+
+
+# -------------------------------------------------------------------------
+# -------------------------------------------------------------------------
+# Using TWITTER -----------------------------------------------------------
 
 # Create a vector containing only the text
 text <- tweet_words_interesting$word
